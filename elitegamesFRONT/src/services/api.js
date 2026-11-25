@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-    baseURL: 'http://localhost:8080',
+    baseURL: simport.meta.env.VITE_API_URL || 'http://localhost:8080',
 });
 
 // =========================================================
@@ -39,8 +39,8 @@ api.interceptors.response.use(
             localStorage.removeItem('user');
 
             // Só redireciona se não estiver no login
-            if (window.location.pathname !== '/login') {
-                window.location.href = '/login';
+            if (!window.location.href.includes('/login')) {
+                window.location.href = '/EliteGames/#/login';
             }
         }
 
