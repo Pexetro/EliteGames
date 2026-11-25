@@ -3,8 +3,12 @@ name: CI/CD EliteGames
 on:
   push:
     branches: [main]
+    paths:
+      - 'elitegamesFRONT/**' # Só roda a pipeline se mudar algo no frontend
   pull_request:
     branches: [main]
+    paths:
+      - 'elitegamesFRONT/**'
 
 permissions:
   contents: read
@@ -15,6 +19,11 @@ jobs:
   # ========== CI ==========
   ci:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        # Define que todos os comandos 'run' vão rodar dentro da pasta do frontend
+        working-directory: ./elitegamesFRONT 
+    
     steps:
       - name: Checkout
         uses: actions/checkout@v5
@@ -24,6 +33,8 @@ jobs:
         with:
           node-version: 20
           cache: 'npm'
+          # O setup-node também precisa saber onde está o package-lock.json para o cache funcionar
+          cache-dependency-path: './elitegamesFRONT/package-lock.json'
 
       - name: Install dependencies
         run: npm ci
@@ -38,7 +49,8 @@ jobs:
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         uses: actions/upload-pages-artifact@v5
         with:
-          path: dist
+          # O caminho do artefato tem que apontar para a pasta dist dentro do frontend
+          path: ./elitegamesFRONT/dist
 
   # ========== CD ==========
   cd:
