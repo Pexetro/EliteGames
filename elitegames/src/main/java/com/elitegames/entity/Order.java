@@ -27,6 +27,14 @@ public class Order {
     @JoinColumn(name = "service_id", nullable = false)
     private Product service;
 
+    public User getClient() {
+        return client;
+    }
+
+    public void setClient(User client) {
+        this.client = client;
+    }
+
     @ManyToOne
     @JoinColumn(name = "client_id", nullable = false)
     private User client;  // ← Campo "client"

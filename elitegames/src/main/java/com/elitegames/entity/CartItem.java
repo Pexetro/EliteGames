@@ -52,6 +52,14 @@ public class CartItem {
     @Column(name = "added_at", nullable = false)
     private Instant addedAt;
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     @PrePersist
     void onCreate() {
         if (addedAt == null) addedAt = Instant.now();

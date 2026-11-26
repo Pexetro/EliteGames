@@ -74,4 +74,12 @@ public class Cart {
     public int itemCount() {
         return items.stream().mapToInt(CartItem::getQuantity).sum();
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 }

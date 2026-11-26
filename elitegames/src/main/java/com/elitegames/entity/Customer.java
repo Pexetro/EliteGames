@@ -20,6 +20,13 @@ import java.util.List;
 @AllArgsConstructor
 @Table(name = "customer")
 public class Customer extends User {
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
 
     private String firstName;
     private String lastName;
